@@ -1,0 +1,12 @@
+[Unit]
+Description=Apache Spark Master
+After=network.target
+
+[Service]
+Type=forking
+User=ubuntu
+ExecStart=/opt/spark/sbin/start-master.sh
+ExecStop=/opt/spark/sbin/stop-master.sh
+
+[Install]
+WantedBy=multi-user.target
