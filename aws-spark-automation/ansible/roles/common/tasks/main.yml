@@ -10,11 +10,20 @@
       - scala
     state: present
 
-- name: Download and unarchive Spark
+- name: Download Spark to local controller (runs only once)
+  delegate_to: localhost
+  run_once: true
+  become: no
+  get_url:
+    url: https://archive.apache.org/dist/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
+    dest: /tmp/spark-3.5.0-bin-hadoop3.tgz
+    mode: '0644'
+
+- name: Copy and unarchive Spark on remote nodes
   unarchive:
-    src: https://archive.apache.org/dist/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
+    src: /tmp/spark-3.5.0-bin-hadoop3.tgz
     dest: /opt/
-    remote_src: yes
+    remote_src: no
     creates: /opt/spark-3.5.0-bin-hadoop3
 
 - name: Create symlink for Spark
