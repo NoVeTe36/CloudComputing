@@ -1,3 +1,9 @@
 export SPARK_HOME=/opt/spark
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+export SPARK_WORKER_MEMORY=1500m
+
+export SPARK_WORKER_OPTS="$SPARK_WORKER_OPTS -Dspark.worker.cleanup.enabled=true"
+export SPARK_WORKER_OPTS="$SPARK_WORKER_OPTS -Dspark.worker.cleanup.interval=1800"
+export SPARK_WORKER_OPTS="$SPARK_WORKER_OPTS -Dspark.worker.cleanup.appDataTtl=86400"

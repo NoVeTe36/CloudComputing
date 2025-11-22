@@ -32,8 +32,8 @@
     dest: /opt/spark
     state: link
 
-- name: Set Spark environment variables
+- name: Configure Spark environment
   template:
     src: spark-env.sh.j2
-    dest: /etc/profile.d/spark.sh
-    mode: '0755'
+    dest: /opt/spark/conf/spark-env.sh
+    mode: '0644'

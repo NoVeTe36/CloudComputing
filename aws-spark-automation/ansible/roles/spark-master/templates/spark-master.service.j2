@@ -7,6 +7,8 @@ Type=forking
 User=ubuntu
 ExecStart=/opt/spark/sbin/start-master.sh
 ExecStop=/opt/spark/sbin/stop-master.sh
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
