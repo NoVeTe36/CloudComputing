@@ -1,12 +1,15 @@
 [Unit]
-Description=Apache Spark Worker
+Description=Spark Worker
 After=network.target
 
 [Service]
-Type=forking
+Type=simple
 User=ubuntu
+Group=ubuntu
 ExecStart=/opt/spark/sbin/start-worker.sh spark://{{ hostvars[groups['spark_master'][0]]['private_ip_address'] }}:7077
 ExecStop=/opt/spark/sbin/stop-worker.sh
+Restart=on-failure
+RestartSec=5s       # Wait 5 seconds before restarting
 
 [Install]
 WantedBy=multi-user.target
