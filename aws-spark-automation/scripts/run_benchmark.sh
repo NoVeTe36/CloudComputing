@@ -17,7 +17,7 @@ S3_BUCKET="s3a://usth-spark-project-data-tung-20251121"
 JAR_FILE="spark-wordcount-1.0.jar"
 
 # Files to test
-TEST_FILES=("test_500K.txt" "test_2M.txt" "test_5M.txt")
+  TEST_FILES=("1MB_file.txt" "test_10M.txt" "test_20M.txt" "test_40M.txt" "test_80M.txt" "test_100M.txt")
 # --- End Configuration ---
 
 
@@ -39,6 +39,12 @@ for FILE in "${TEST_FILES[@]}"; do
       --class WordCount \
       --master spark://$MASTER_IP:7077 \
       --conf spark.driver.host=$EDGE_NODE_IP \
+      --conf spark.driver.cores=1 \
+      --conf spark.driver.memory=512m \
+      --conf spark.executor.cores=1 \
+      --conf spark.executor.memory=512m \
+      --conf spark.cores.max=4 \
+      --conf spark.eventLog.enabled=false \
       $JAR_FILE \
       $INPUT_PATH \
       $OUTPUT_PATH
