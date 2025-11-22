@@ -38,6 +38,6 @@ terraform.rc
 
 
 
-
+data/
 spark-key
 spark-key.pub
