@@ -81,11 +81,8 @@ resource "aws_key_pair" "spark_key" {
   public_key = file(var.public_key_path)
 }
 
-// --- START: NEW S3 AND IAM RESOURCES ---
-
-// 1. Create a globally unique S3 bucket for your data
+// --- S3 AND IAM RESOURCES ---
 resource "aws_s3_bucket" "spark_data" {
-  // BUCKET NAMES MUST BE GLOBALLY UNIQUE. CHANGE THIS!
   bucket = "usth-spark-project-data-tung-20251121" 
 
   tags = {
@@ -93,7 +90,6 @@ resource "aws_s3_bucket" "spark_data" {
   }
 }
 
-// 2. Create an IAM role that EC2 instances can assume
 resource "aws_iam_role" "spark_ec2_role" {
   name = "spark_ec2_role"
 
@@ -111,13 +107,11 @@ resource "aws_iam_role" "spark_ec2_role" {
   })
 }
 
-// 3. Attach the AWS-managed policy that allows full S3 access to the role
 resource "aws_iam_role_policy_attachment" "s3_full_access" {
   role       = aws_iam_role.spark_ec2_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 
-// 4. Create an instance profile to pass the role to the EC2 instances
 resource "aws_iam_instance_profile" "spark_instance_profile" {
   name = "spark_instance_profile"
   role = aws_iam_role.spark_ec2_role.name

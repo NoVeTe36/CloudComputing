@@ -18,7 +18,7 @@ variable "instance_type" {
 variable "worker_count" {
   description = "The number of Spark worker nodes."
   type        = number
-  default     = 2
+  default     = 4
 }
 
 variable "key_name" {

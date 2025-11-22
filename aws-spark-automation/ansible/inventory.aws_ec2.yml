@@ -4,15 +4,13 @@ regions:
   - ap-southeast-1
 
 # Use tags to create groups.
-# This will create groups like 'spark_master' and 'spark_worker'.
 keyed_groups:
   - key: "tags['spark-cluster']"
     prefix: spark
 
-# Set hostnames from the 'Name' tag.
 hostnames:
   - "tag:Name"
 
-# Use the private IP address for connections.
+# Use the public IP address for connections.
 compose:
   ansible_host: public_ip_address
